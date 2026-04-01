@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="kavi3.jpeg">
+<title>School Memories 😞</title>
+
+<style>
+
+.card:hover{
+  transform: scale(1.05);
+  box-shadow:0 0 40px var(--clr);
+}
+
+@keyframes glowAnim{
+  0%{ box-shadow:0 0 10px var(--clr); }
+  50%{ box-shadow:0 0 30px var(--clr); }
+  100%{ box-shadow:0 0 10px var(--clr); }
+}
+
+.card{
+  background:rgba(0,0,0,0.5);
+  padding:10px;
+  border-radius:10px;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+/* glow effect */
+.card.glow{
+  animation: glowAnim 2s infinite alternate;
+}
+
+@keyframes glowAnim{
+  from{ box-shadow:0 0 10px var(--clr); }
+  to{ box-shadow:0 0 25px var(--clr); }
+}
+
+#quiz {
+  align-items: center;   /* center everything */
+  text-align: center;
+}
+
+#quiz label {
+  display: block;        /* each option separate line */
+  text-align: center;    /* center text */
+}
+
+#quiz input[type="radio"] {
+  margin-right: 8px;
+}
+
+
+#quiz label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+#emo .card,
+#comedy .card,
+#mass .card{
+  margin:10px;
+  padding:15px;
+  background:rgba(0,0,0,0.6);
+  border-radius:10px;
+  animation:fadeIn 0.5s ease;
+}
+
+
+#viewer{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#viewer img,
+#viewer video{
+  max-width:90%;
+  max-height:90%;
+  border-radius:10px;
+}
+
+
+ .card img,
+.card video{
+  width:100%;
+  height:200px;          /* 🔥 same height */
+  object-fit:cover;      /* 🔥 crop pannum (best) */
+  border-radius:10px;
+}
+   
+body{
+  margin:0;
+  font-family:Arial;
+  text-align:center;
+  color:white;
+  overflow-x:hidden;
+}
+
+img{
+  max-width:100%;
+}
+
+#watermark{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  opacity:0.3;
+  font-size:18px;
+  z-index:9999;
+}
+
+#gallery {           /* flex layout */
+  flex-direction: column;    /* vertical stacking */
+  align-items: center;       /* center horizontally */
+  justify-content: flex-start; 
+  padding-top: 30px;
+  text-align: center;        /* text center */
+}
+
+.main-img{
+  width: 90%;
+  max-width: 500px;   /* laptop la too big aagadhu */
+  height: auto;       /* 🔥 correct ratio maintain */
+  border-radius: 15px;
+}
+
+
+
+#gallery h2, 
+#gallery p, 
+#gallery button {
+  text-align: center;        /* make heading, paragraph, button center */
+}
+
+/* 🔥 COMMON PAGE STYLE */
+.page{
+  display:none;
+  min-height:100vh;
+
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  transition: all 0.6s ease;
+}
+
+/* 🔥 LOGIN PAGE BACKGROUND */
+#login{
+  display:flex;
+  background: url('background1.jpg') no-repeat center/cover;
+  position:relative;
+}
+
+html, body{
+  height: 100%;
+}
+
+/* 🔥 OTHER PAGES BACKGROUND */
+#page2, #gallery, #quiz, #choice, #memory, #emo, #comedy,#mass,#advice, #final{
+  background: url('16x24school.jpg') no-repeat center/cover;
+  position:relative;
+}
+
+/* 🔥 BLUR OVERLAY */
+#login::before,
+#page2::before,
+#gallery::before,
+#quiz::before,
+#choice::before,
+#memory::before,
+#emo::before,
+#comedy::before,
+#mass::before,
+#advice::before,
+#final::before{
+  content:"";
+  position:absolute;
+  top:0;          /* 🔥 add this */
+  left:0;         /* 🔥 add this */
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  z-index:0;
+}
+/* 🔥 CONTENT ABOVE BLUR */
+.page *{
+  position:relative;
+  z-index:1;
+}
+
+
+/* 📱 MOBILE RESPONSIVE BACKGROUND FIX */
+@media (max-width: 768px){
+
+  #login,
+  #page2,
+  #gallery,
+  #quiz,
+  #choice,
+  #memory,
+  #emo,
+  #comedy,
+  #mass,
+  #advice,
+  #final{
+
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+
+    /* 🔥 important fix */
+    min-height: 100vh;
+  }
+
+  /* 🔥 image stretch avoid */
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+
+}
+
+
+
+/* 🔥 LOGIN BOX */
+.login-box{
+  background: rgba(0,0,0,0.7);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(255,255,255,0.2);
+
+  width: 90%;
+  max-width: 350px;   /* 🔥 fixed width */
+  margin: auto;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.login-box input{
+  width: 100%;          /* 🔥 equal size */
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  box-sizing: border-box;  /* 🔥 prevents overflow */
+}
+
+.login-box button{
+  width: 100%;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  background:#ff4d6d;
+  color:white;
+}
+
+
+#lastday{
+  width:90%;
+  max-width:500px;
+  margin:auto;
+  line-height:1.8;
+  font-size:17px;
+}
+
+#finalkavi{
+  width:90%;
+  max-width:500px;
+  margin:auto;
+  line-height:1.6;
+  font-size:16px;
+}
+
+/* INPUT */
+input, textarea{
+  padding:10px;
+  margin:10px;
+  width:80%;
+  border-radius:10px;
+  border:none;
+}
+
+/* BUTTON */
+button{
+  padding:10px 20px;
+  margin:10px;
+  border:none;
+  border-radius:20px;
+  background:#ff4d6d;
+  color:white;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  width: 90%;
+  justify-items: center;     /* 🔥 cards center in grid */
+}
+.card{
+  background:rgba(0,0,0,0.5);
+  padding:10px;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+
+</head>
+
+<body onload="init()">
+
+
+<audio id="bgm" loop></audio>
+
+    <div id="viewer" onclick="closeViewer()">
+  <img id="viewerImg">
+  <video id="viewerVideo" controls></video>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="page" style="display:flex">
+
+  <div class="login-box">
+    <h1 style="padding-left: 50px;">Login ❤️</h1>
+<label for="name"> <u>Name</u></label>
+    <input id="name" placeholder="Name(First Letter Capital)">
+    <label for="pass"> <u>Password</u></label>
+    <input type="date" id="pass" placeholder="Date of birth">
+
+    <button onclick="login()">LOGIN</button>
+  </div>
+
+</div>
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+<h1>🎉 1 Year Completed 🎉</h1>
+ <img src="16x24school.jpg" class="main-img"> <br>
+<p></p>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="page">
+<h2 style="text-align: center;">Memories 📸</h2>
+
+<p id="finalkavi">
+One year aayiduchu… aana andha school days innum fresh ah irukku ❤️  
+Daily sirippu, small fights, bench sharing, lunch moments… ellam ipo memories aayiduchu 😢  
+Time fast ah pochu, aana namma friendship strong ah than irukku 🔥  
+Distance vandhalum… namma bond eppovum break aagadhu friends 💯
+</p>
+
+<div class="grid">
+
+<div class="card">
+<img src="KA8_5891.JPG" onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="kaviraj3.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5894.JPG" onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="kaviraj2.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5895.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="kaviraj.mp4"  onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5896.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<video src="longtime.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5897.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<video src="Cakecut.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="KA8_5898.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<video src="cakecut2.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="KA8_5905.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<video src="Girlsside.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="KA8_5906.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="lastmovent2.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="KA8_5915.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="lastmovent.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5936.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="closeend.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="10thlife.jpeg" onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="Road.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5937.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="pongal.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="10thlife2.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<video src="kavi1.mp4" onclick="openViewer(this)"></video>
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="11thlife.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5955.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="11thlife2.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="loousega.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="sapadu.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="kavi2.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="threefriends.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5958.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="threemass.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="kavi3.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="puligo.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="gopaluga.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="maram.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="kavi4.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="maram2.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="KA8_5961.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="maram3.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="gundumani.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="bosegift.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="gang.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="kavi6.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="3lusuga.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+<div class="card">
+<img src="kavi7.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="4lusuga.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5966.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="2mass.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="kavi8.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="mounish.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="kirukupalaluga.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5974.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+
+
+<div class="card">
+<img src="paitiyaga.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5975.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="dosat.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5976.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="Aclass.jpeg"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5978.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5979.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5980.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5981.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5982.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5984.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5985.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5986.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5987.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5989.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5993.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_5994.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6004.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6006.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6010.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6011.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6012.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6015.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)"> 
+</div>
+
+<div class="card">
+<img src="KA8_6017.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6018.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6026.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6032.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6043.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6046.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6048.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6056.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6058.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6072.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6074.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6089.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6091.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6095.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6115.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6116.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6123.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+<div class="card">
+<img src="KA8_6124.JPG"  onclick="openViewer(this)">
+<button onclick="like(this)">❤️ 0</button>
+<input placeholder="comment" onchange="saveComment(this)">
+</div>
+
+</div>
+
+<p>School Mudinji One Years ahchi…
+Aana namma friendship mudiyala ❤️🔥<br>
+
+Distance irundhalum…
+Namma bond strong ah than irukum friends 😎</p>
+
+<button onclick="goToQuiz()">👉Next👈</button>
+</div>
+<!-- QUIZ -->
+<div id="quiz" class="page">
+<h2>Quiz 🧠</h2>
+
+<p style="color:#ff4d6d;">
+🔥 Quiz complete panna dhaan next level unlock ahgum 😎
+</p>
+
+<p>1.Are You Mising School Life?</p>
+<input id="q1" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>2. Your best friend name?</p>
+<input id="q2" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>3. Namma Class la romba over scene podra yaru?</p>
+<input id="q3" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>4. Unnaku time mechanic kadachi ne school life ku pora na anga ne atha matuva?</p>
+<input id="q4" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>5. Best memory place in school?</p>
+<input id="q5" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>6. Naba friends la unaaku pudikadavaga Yaru?</p>
+<input id="q6" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>7. Funniest/Funny Boy or Girl person?</p>
+<input id="q7" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<p>8. Class topper Yaru?</p>
+<input id="q8" oninput="checkQuiz()" placeholder="Type Your Answer">
+
+<!-- 🔥 QUESTION 9 (OPTIONS) -->
+<p>9. Favourite Subject?</p>
+
+<label><input type="radio" name="q9" value="Maths" onchange="checkQuiz()"> Maths</label><br>
+  <label><input type="radio" name="q9" value="Science" onchange="checkQuiz()"> Science</label><br>
+<label><input type="radio" name="q9" value="English" onchange="checkQuiz()"> English</label><br>
+<label><input type="radio" name="q9" value="Tamil" onchange="checkQuiz()"> Tamil</label><br>
+<label><input type="radio" name="q9" value="Tamil" onchange="checkQuiz()"> Chemistry</label><br>
+<label><input type="radio" name="q9" value="Tamil" onchange="checkQuiz()"> Physics</label><br>
+
+<p>10. Miss pannura person Name?</p>
+<input id="q10" oninput="checkQuiz()" placeholder="Type Your Answer"> <br>
+<p>👇👇</p>
+<button id="quizNext" style="display:none;" onclick="show('choice')">Next</button>
+</div>
+
+
+
+<!-- Dicilag -->
+<div id="choice" class="page">
+<p style="color:#ff4d6d;">
+🔥 Three button click panni open panna tha Next button visble ahhgum  😎
+</p>
+
+<h2 style="color: #e82fee;">Select Your Mood 😎</h2> <br>
+
+<video src="sadimage.mp4" autoplay muted loop></video> <br>
+<button id="btn1" onclick="openSection('emo')">Emotional Friends 🥺</button><br>
+<video src="comedy.mp4" autoplay muted loop></video> <br>
+<button id="btn2" onclick="openSection('comedy')">Comedy Friends 😂</button><br>
+<video src="Happy.mp4" muted autoplay loop></video> <br>
+<button id="btn3" onclick="openSection('mass')">Mass Friends 🔥</button>
+
+<br><br>
+<p>👇👇👇</p>
+<button id="nextChoice" style="display:none;" onclick="show('memory')">Next</button>
+
+</div>
+
+<div id="emo" class="page">
+<h2>Emotional Memories 🥺</h2>
+
+<div class="card">Naama ellarum same bench la ukkandhom…
+Ippo ellarum vera vera life la poitom 💔</div>
+<div class="card">Appo leave venum nu aasai…
+Ippo andha days thirumba venum nu aasai 🥺</div>
+<div class="card">Photo la dhaan ippo ellarum serndhu irukkom…
+Real life la illa  😢</div>
+<div class="card">School la irundha sirippu…
+Ippo romba rare 😔</div>
+<div class="card">Namma siricha idam dhaan school…
+Ippo adhula memories dhaan irukku 🥺</div>
+<div class="card">Appo time slow ah pogudhu nu thonuchu…
+Ippo thaan theriyudhu evlo fast pochu nu 💔</div>
+<div class="card">Namma group photo la sirikkura faces…
+Ippo romba miss aagudhu da 😢</div>
+<div class="card">Sila per kitta pesama poidom…
+Aana avanga importance ippo dha puriyudhu 🥺</div>
+<div class="card">Friends kooda share pannina small moments…
+Ippo big memories aayiduchu ❤️</div>
+<div class="card">Bell sound la irundha happiness…
+Ippo ringtone la kidaikala 💔</div>
+<div class="card">Class la irundha noise…
+Ippo silence aayiduchu 💔</div>
+<div class="card">School gate ah kadanthu pona apram…
+Life romba different aayiduchu 🥺</div>
+<div class="card">Group ah irundha nabaa…
+Ippo memories ah irukku😢</div>
+<div class="card">Time thirumba varala…
+Aana memories thirumba thirumba varudhu 🥺</div>
+
+
+<button onclick="backToChoice()">Back</button>
+</div>
+
+
+<div id="comedy" class="page">
+<h2>Comedy Moments 😂</h2>
+
+<div class="card">Class la padikkala… aana sirika dhaan vandhom 🤣</div>
+<div class="card">Homework pannaama vandhom…
+Aana excuse ready ah irukum 🤣</div>
+<div class="card">Exam la answer theriyala…
+Aana friends irundha bayam illa 🤣</div>
+<div class="card">Sir paatha odane serious…
+Sir pona udane comedy 🤣🔥</div>
+Bell sound la irundha happiness…
+Ippo ringtone la kidaikala da 💔
+<div class="card">Lunch box small ah irundhalum…
+Sharing big ah irukum 😂 🤣</div>
+<div class="card">Padikka book open pannom…
+Aana mind vera place la 🤣</div>
+<div class="card">Last bench sirippu… life la maraka mudiyadhu🤣</div>
+
+<button onclick="backToChoice()">Back</button>
+</div>
+
+
+<div id="mass" class="page">
+<h2>Mass Batch 🔥</h2>
+
+<div class="card">School mudinjiduchu…
+Aana namma bonding lifetime 🔥</div>
+<div class="card">Marks marandhudum…
+Aana namma moments maraka mudiyadhu 🔥</div>
+<div class="card">Marks ku value irundhalum…
+Friends ku dhaan real value ❤️🔥</div>
+<div class="card">Namma batch ku duplicate illa…
+Unique piece 😎🔥</div>
+<div class="card">Life la evlo busy aanaalum…
+School friends always priority ❤️</div>
+<div class="card">Distance irundhalum…
+Namma friendship offline aagadhu 🔥</div>
+<div class="card">School chapter mudinjiduchu…
+Aana namma story innum continue 🔥</div>
+<div class="card">Namma batch ku history irukku 😎🔥</div>
+<div class="card">Distance namma friendship ah weak panna mudiyadhu 🔥</div>
+<div class="card">Namma serndha naal ellam history da…
+Namma pirindha naal ellam memory 😎🔥</div>
+<div class="card">Namma friendship ku full stop illa…
+Lifetime loading dha 😎💥</div>
+
+<button onclick="backToChoice()">Back</button>
+</div>
+
+
+<!-- MEMORY -->
+<div id="memory" class="page">
+<h2>Your School Memory 💭</h2>
+
+<textarea id="memoryText" placeholder="Your school Memory ahh text Pannu"></textarea> <br>
+
+<button onclick="enableNext()">Submit</button>
+<button id="nextBtn" style="display:none;" onclick="show('advice')">Next</button>
+</div>
+
+<!-- ADVICE -->
+<div id="advice" class="page">
+<h2> Your Friend Name & Question</h2>
+
+<input id="fname" placeholder=" Your Friend Name">
+<textarea id="adviceText" placeholder="Friend Kita enna question kakunum"></textarea> <br>
+
+<button onclick="sendData()">Submit</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="page">
+<h1>❤️ Thank You ❤️</h1>
+<h2>Miss You So Much Friends 😢</h2>
+<img src="16x24school.jpg" class="main-img">
+
+<p id="lastday">
+* Life la ellarum vera vera padaila  poiduvom…  
+Aana oru naalum namma school days ah marakka mudiyadhu illa 😢  <br>
+
+* Last day la ellarum sirichom… aana ullae ellarum azhudhoma nu theriyala 💔  
+Adhu dhaan namma last ah serndhu irundha naal nu yaarum nenachirukala…  <br>
+
+* Ippo photo la dhaan ellarum serndhu irukkom…  
+Real life la ellarum romba dhoorama poidom 🥺  <br>
+
+* Pesama poita sila per… aana avanga importance romba late ah puridhu 😞  
+Small ah irundha moments… ippo biggest memories aayiduchu ❤️  <br>
+  
+* Oru naal ellarum thirumba meet pannuvom nu namburen… 😢<br>
+
+* Adhu varaikum…  
+indha memories dhaan namma kooda irukum 💔  <br>
+
+* Forever… namma friendship ku end illa 🔥<br>
+</p>
+</div>
+   
+<div id="watermark"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+
+let currentSong = 0;
+
+
+let appData = {
+ likes: {},
+ comments: {}
+};
+
+
+    document.addEventListener("visibilitychange", function(){
+  if(document.hidden){
+    document.body.style.filter = "blur(20px)";
+  } else {
+    document.body.style.filter = "none";
+  }
+});
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.onkeydown = function(e){
+  if(e.keyCode == 123) return false; // F12
+};
+/* USERS (add 30 here) */
+var users = [
+ {name:"Kaviraj",pass:"2007-06-16"},
+ {name:"Bose",pass:"2007-04-27"},
+ {name:"Manikandan",pass:"2007-09-09"},
+ {name:"Thirumalai",pass:"2008-07-01"},
+ {name:"Mohandass",pass:"2007-12-29"},
+ {name:"Thennarasu",pass:"2008-06-16"},
+ {name:"Srithirumalai",pass:"2008-10-03"},
+ {name:"Kamalesh",pass:"2008-07-29"},
+ {name:"Suveenkumar",pass:"2008-06-24"},
+ {name:"Sharmitha",pass:"2008-12-06"},
+ {name:"Kaviya",pass:"2008-03-04"},
+ {name:"Pavithra",pass:"2008-02-12"},
+ {name:"Dhansiri",pass:"2008-01-13"},
+ {name:"Swetha",pass:"2007-12-21"},
+ {name:"Jothika",pass:"2008-07-06"},
+ {name:"Thirisha",pass:"2008-06-26"},
+ {name:"Deepika",pass:"2007-11-12"},
+ {name:"Magitha",pass:"2007-11-04"},
+ {name:"Susmitha",pass:"2008-11-11"},
+ {name:"Aboorva",pass:"2008-01-21"},
+ {name:"Arshini",pass:"2008-01-13"},
+ {name:"Sneha",pass:"2008-05-30"},
+ {name:"Vishva",pass:"2007-11-25"},
+ {name:"Yohannan",pass:"2008-05-03"},
+ {name:"Prasanth",pass:"2009-02-12"},
+ {name:"Rani",pass:"2008-08-25"},
+ {name:"Anitha",pass:"2008-04-14"},
+ {name:"Sathya",pass:"2008-04-18"},
+ {name:"Naveena",pass:"2008-05-16"},
+ {name:"Mounish",pass:"2007-12-30"},
+ {name:"Nisanth",pass:"2008-09-26"},
+ {name:"Siddharth",pass:"2008-12-15"},
+ {name:"Sanmathi",pass:"2008-01-01"},
+ {name:"Bruntha",pass:"2008-01-01"},
+ {name:"Vijayalakshmi",pass:"2008-01-01"}
+];
+
+/* INIT EMAILJS */
+function init(){
+ emailjs.init("Hu6m4biYyhq38Kpx3"); // replace
+}
+
+/* PAGE SWITCH */
+function show(id){
+
+ let pages = document.getElementsByClassName("page");
+ for(let i=0;i<pages.length;i++){
+   pages[i].style.display="none";
+ }
+
+ document.getElementById(id).style.display="flex";
+
+ // 🎧 MUSIC CONTROL
+ if(id=="page2") playMusic("lasttime.mp3");
+
+ if(id=="gallery"){
+  applyRandomGlow(); // 🔥 add this
+}
+
+ if(id=="quiz")playMusic("schoolrevan.mp3");
+ if(id=="choice") playMusic("96bgm.mp3");
+ if(id=="emo") playMusic("gallary2.mp3");
+ if(id=="comedy") playMusic("comedypage.mp3");
+ if(id=="mass") playMusic("gallary5.mp3");
+ if(id=="memory") playMusic("gallary1.mp3");
+ if(id=="advice") playMusic("96slowbgm.mp3");
+ if(id=="final") playMusic("gallary3.mp3");
+}
+
+/* LOGIN */
+function login(){
+ let n = document.getElementById("name").value;
+ let p = document.getElementById("pass").value;
+
+ let ok = users.find(x=>x.name==n && x.pass==p);
+
+ if(ok){
+
+    document.getElementById("watermark").innerText = "User: " + n;
+
+   show("page2");
+
+   setTimeout(()=>{
+     show("gallery");
+   },3000);
+
+ } else {
+   alert("Wrong details😒");
+ }
+
+ document.body.addEventListener("click", function(){
+ document.getElementById("bgm").play();
+}, { once:true });
+}
+
+/* LIKE BUTTON */
+let userLikes = {}; // track user likes
+
+function like(btn){
+
+  let card = btn.parentElement;
+  let media = card.querySelector("img,video").src;
+
+  // first time initialize
+  if(!appData.likes[media]){
+    appData.likes[media] = 0;
+  }
+
+  // check already liked or not
+  if(userLikes[media]){
+    // 🔴 UNLIKE
+    appData.likes[media]--;
+    userLikes[media] = false;
+  } else {
+    // ❤️ LIKE
+    appData.likes[media]++;
+    userLikes[media] = true;
+  }
+
+  // update UI
+  btn.innerText = "❤️ " + appData.likes[media];
+}
+
+/* ENABLE NEXT */
+function enableNext(){
+
+ let memory = document.getElementById("memoryText").value;
+
+ if(memory.trim() == ""){
+   alert("Aiii memory empty ah iruku  😒 Un memory ahh type pannu!");
+   return;
+ }
+
+ document.getElementById("nextBtn").style.display="inline-block";
+}
+
+/* SEND DATA */
+function sendData(){
+
+let fname = document.getElementById("fname").value;
+let advice = document.getElementById("adviceText").value;
+
+// ❌ EMPTY CHECK
+if(fname.trim() == "" || advice.trim() == ""){
+  alert("Aii friend name & friend kita kakura our question ahh fill pannu 😡");
+  return;
+}
+let q9val = document.querySelector('input[name="q9"]:checked');
+
+let data = {
+
+
+ name: document.getElementById("name").value,
+
+ // QUIZ
+ q1: q1.value,
+ q2: q2.value,
+ q3: q3.value,
+ q4: q4.value,
+ q5: q5.value,
+ q6: q6.value,
+ q7: q7.value,
+ q8: q8.value,
+ q9: q9val ? q9val.value : "Not Selected",
+ q10: q10.value,
+
+ // MEMORY + ADVICE
+ memory: document.getElementById("memoryText").value,
+ friend: document.getElementById("fname").value,
+ advice: document.getElementById("adviceText").value,
+
+
+ // 🔥 ALL LIKES + COMMENTS
+ likes: JSON.stringify(appData.likes),
+ comments: JSON.stringify(appData.comments)
+
+ 
+
+};
+
+
+// 🔥 👉 ADD HERE (IMPORTANT)
+let max = 0, best = "";
+
+for(let i in appData.likes){
+ if(appData.likes[i] > max){
+   max = appData.likes[i];
+   best = i;
+ }
+}
+
+if(best){
+ data.topPhoto = best.split("/").pop();
+}else{
+ data.topPhoto = "No Likes";
+}
+
+
+emailjs.send("service_ms1ijlg","template_gooh7t8",data)
+.then(function(response) {
+   console.log("SUCCESS!", response.status, response.text);
+   alert("Miss you guys✅medum sandipom");
+})
+.catch(function(error) {
+   console.log("FAILED...", error);
+   alert("Ne atho miss panni irruka enna nu tharila so first la irrudu logi pannu");
+});
+
+show("final");
+}
+
+
+function checkQuiz(){
+
+ let filled = true;
+
+ // Q1 to Q8 + Q10 check
+ for(let i=1;i<=10;i++){
+
+   if(i == 9){
+     let q9 = document.querySelector('input[name="q9"]:checked');
+     if(!q9){
+       filled = false;
+     }
+   }
+   else{
+     let val = document.getElementById("q"+i).value;
+     if(val.trim() == ""){
+       filled = false;
+     }
+   }
+
+ }
+
+ if(filled){
+   document.getElementById("quizNext").style.display="inline-block";
+ }
+}
+
+function openViewer(el){
+
+  let viewer = document.getElementById("viewer");
+  let img = document.getElementById("viewerImg");
+  let video = document.getElementById("viewerVideo");
+  let bgm = document.getElementById("bgm");
+
+  viewer.style.display = "flex";
+
+  if(el.tagName == "IMG"){
+
+    // ❌ bgm touch panna koodadhu
+    img.src = el.src;
+    img.style.display = "block";
+    video.style.display = "none";
+
+    // 3 sec auto close
+    setTimeout(closeViewer,3000);
+
+  } else {
+
+    // 🎧 video ku mattum bgm pause
+    bgm.pause();
+
+    video.src = el.src;
+    video.style.display = "block";
+    img.style.display = "none";
+
+    video.currentTime = 0;
+    video.play();
+
+    // video mudinja apram close
+    video.onended = function(){
+      closeViewer();
+    };
+  }
+}
+
+
+function closeViewer(){
+
+  let viewer = document.getElementById("viewer");
+  let video = document.getElementById("viewerVideo");
+  let bgm = document.getElementById("bgm");
+
+  viewer.style.display = "none";
+
+  // video stop
+  video.pause();
+  video.currentTime = 0;
+
+  // 🎧 resume only if paused
+  if(bgm.paused){
+    bgm.play();
+  }
+}
+
+
+let clicked = {
+ emo:false,
+ comedy:false,
+ mass:false
+};
+
+function openSection(type){
+ show(type);
+
+ // button disable after click
+ if(type == "emo"){
+   document.getElementById("btn1").disabled = true;
+   clicked.emo = true;
+ }
+ if(type == "comedy"){
+   document.getElementById("btn2").disabled = true;
+   clicked.comedy = true;
+ }
+ if(type == "mass"){
+   document.getElementById("btn3").disabled = true;
+   clicked.mass = true;
+ }
+
+ checkAll();
+}
+
+function backToChoice(){
+ show("choice");
+}
+
+function checkAll(){
+ if(clicked.emo && clicked.comedy && clicked.mass){
+   document.getElementById("nextChoice").style.display = "inline-block";
+ }
+}
+
+//save function
+
+function playMusic(src){
+  let bgm = document.getElementById("bgm");
+  bgm.onended = null; // 🔥 stop playlist
+  bgm.src = src;
+  bgm.play();
+}
+
+
+function saveComment(input){
+ let card = input.parentElement;
+ let media = card.querySelector("img,video").src;
+
+ appData.comments[media] = input.value;
+}
+
+
+function checkComments(){
+
+ let hasComment = false;
+
+ for(let key in appData.comments){
+   if(appData.comments[key].trim() !== ""){
+     hasComment = true;
+     break;
+   }
+ }
+
+ if(!hasComment){
+   alert("Aaii atleast oru photo ku un memory ahh  comment pannu 😡");
+   return false;
+ }
+
+ return true;
+}
+
+function goToQuiz(){
+
+ if(checkComments()){
+   show("quiz");
+ }
+
+}
+
+
+
+function applyRandomGlow(){
+
+  let colors = [
+    "#ff4d6d", "#00ffcc", "#ffcc00", "#66ff66",
+    "#00ccff", "#ff66ff", "#ff3300", "#33ffcc"
+  ];
+
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    let randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    card.style.setProperty('--clr', randomColor);
+    card.classList.add("glow");
+
+  });
+
+}
+</script>
+
+</body>
+</html>
