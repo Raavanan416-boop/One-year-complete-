@@ -346,7 +346,7 @@ button{
 <label for="name"> <u>Name</u></label>
     <input id="name" placeholder="Name(First Letter Capital)">
     <label for="pass"> <u>Password</u></label>
-    <input type="password" id="pass" placeholder="Date of birth(Ex:02042008)">
+    <input type="number" id="pass" placeholder="Date of birth(Ex:12042008) ">
 
     <button onclick="login()">LOGIN</button>
   </div>
@@ -1148,10 +1148,10 @@ Lifetime loading dha 😎💥</div>
 
 <!-- ADVICE -->
 <div id="advice" class="page">
-<h2> Your Friend Name & Friend line</h2>
+<h2> Your Friend Name & Friend ahh line</h2>
 
 <input id="fname" placeholder=" Your Friend Name">
-<textarea id="adviceText" placeholder="Un Friend ahh pati one or two lines text pannnu"></textarea> <br>
+<textarea id="adviceText" placeholder="Un Friend ahh pati one or two lines text pannu"></textarea> <br>
 
 <button onclick="sendData()">Submit</button>
 </div>
@@ -1292,9 +1292,9 @@ function login(){
  let ok = users.find(x=>x.name==n && x.pass==p);
 
  if(ok){
-
+      
          saveLogin(n); // 🔥 ADD THIS
-   
+
     document.getElementById("watermark").innerText = "User: " + n;
 
    show("page2");
@@ -1361,7 +1361,7 @@ let advice = document.getElementById("adviceText").value;
 
 // ❌ EMPTY CHECK
 if(fname.trim() == "" || advice.trim() == ""){
-  alert("Aii friend name & friend kita kakura our question ahh fill pannu 😡");
+  alert("Aii friend name & friend ahh pati one or two lines fill pannu 😡");
   return;
 }
 let q9val = document.querySelector('input[name="q9"]:checked');
@@ -1616,7 +1616,7 @@ function applyRandomGlow(){
   });
 
 }
-  function saveLogin(name){
+function saveLogin(name){
 
  fetch("https://script.google.com/macros/s/AKfycbySLWpzG4bQj2ZBnd3_Vw-bb6kQ_v2yG-WkshbcdYBi7XhJ8moS-n8YspDzg6_Q5AyM/exec", {
    method:"POST",
@@ -1627,6 +1627,7 @@ function applyRandomGlow(){
    })
  });
 }
+
 </script>
 
 </body>
